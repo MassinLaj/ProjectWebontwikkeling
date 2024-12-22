@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mijn Uitgaven</title>
+</head>
+<body>
+  <h1>Mijn Uitgaven</h1>
+  <a href="/uitgaven/toevoegen">Voeg een nieuwe uitgave toe</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Beschrijving</th>
+        <th>Bedrag</th>
+        <th>Categorie</th>
+        <th>Datum</th>
+        <th>Acties</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% uitgaven.forEach(uitgave => { %>
+        <tr>
+          <td><%= uitgave.description %></td>
+          <td><%= uitgave.amount %></td>
+          <td><%= uitgave.category %></td>
+          <td><%= uitgave.date.toLocaleDateString() %></td>
+          <td>
+            <a href="/uitgaven/bewerken/<%= uitgave._id %>">Bewerken</a>
+            <a href="/uitgaven/verwijderen/<%= uitgave._id %>">Verwijderen</a>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

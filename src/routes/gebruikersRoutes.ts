@@ -1,8 +1,12 @@
 import express from 'express';
-import { haalAlleGebruikersOp } from '../controllers/gebruikersController';
+import { isAuthenticated } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.get('/', haalAlleGebruikersOp);
+// Dashboard route
+router.get('/dashboard', isAuthenticated, (req, res) => {
+  const gebruikerId = (req.session as any).gebruikerId; // Sessie-ID ophalen
+  res.render('dashboard', { gebruikerId });
+});
 
 export default router;

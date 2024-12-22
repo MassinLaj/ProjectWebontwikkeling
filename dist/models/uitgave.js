@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Uitgave = void 0;
-var mongoose_1 = __importDefault(require("mongoose"));
-var uitgaveSchema = new mongoose_1.default.Schema({
+const mongoose_1 = __importDefault(require("mongoose"));
+const uitgaveSchema = new mongoose_1.default.Schema({
     beschrijving: { type: String, required: true },
     bedrag: { type: Number, required: true },
     valuta: { type: String, required: true },

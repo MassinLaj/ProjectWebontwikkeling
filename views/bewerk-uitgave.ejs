@@ -1,39 +1,38 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bewerk Uitgave</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Uitgave Bijwerken</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <div class="container mt-5">
-    <h1>Bewerk Uitgave</h1>
-    <form action="/edit-expense/<%= expense._id %>" method="POST">
-      <div class="form-group">
-        <label for="description">Beschrijving</label>
-        <input type="text" name="description" class="form-control" value="<%= expense.description %>" required>
-      </div>
-      <div class="form-group">
-        <label for="amount">Bedrag</label>
-        <input type="number" step="0.01" name="amount" class="form-control" value="<%= expense.amount %>" required>
-      </div>
-      <div class="form-group">
-        <label for="currency">Valuta</label>
-        <input type="text" name="currency" class="form-control" value="<%= expense.currency %>" required>
-      </div>
-      <div class="form-group">
-        <label for="category">Categorie</label>
-        <input type="text" name="category" class="form-control" value="<%= expense.category %>" required>
-      </div>
-      <div class="form-group">
-        <label for="isPaid">Is de uitgave betaald?</label><br>
-        <input type="radio" name="isPaid" value="true" <%= expense.isPaid ? 'checked' : '' %>> Ja
-        <input type="radio" name="isPaid" value="false" <%= !expense.isPaid ? 'checked' : '' %>> Nee
-      </div>
-      <button type="submit" class="btn btn-primary">Opslaan</button>
-    </form>
-    <a href="/" class="btn btn-secondary mt-3">Terug naar Home</a>
+  <div class="card shadow">
+    <div class="card-body">
+      <h1 class="mb-4">Uitgave <%= uitgave ? 'Bijwerken' : 'Toevoegen' %></h1>
+      <form action="<%= uitgave ? '/uitgaven/bewerken/' + uitgave._id : '/uitgaven/toevoegen' %>" method="POST">
+        <div class="mb-3">
+          <label for="beschrijving" class="form-label">Beschrijving:</label>
+          <input type="text" id="beschrijving" name="description" class="form-control" value="<%= uitgave ? uitgave.description : '' %>" required>
+        </div>
+        <div class="mb-3">
+          <label for="bedrag" class="form-label">Bedrag:</label>
+          <input type="number" id="bedrag" name="amount" class="form-control" value="<%= uitgave ? uitgave.amount : '' %>" required>
+        </div>
+        <div class="mb-3">
+          <label for="categorie" class="form-label">Categorie:</label>
+          <select id="categorie" name="category" class="form-select" required>
+            <option value="food" <%= uitgave?.category === 'food' ? 'selected' : '' %>>Eten</option>
+            <option value="drinks" <%= uitgave?.category === 'drinks' ? 'selected' : '' %>>Drinken</option>
+            <option value="huur" <%= uitgave?.category === 'huur' ? 'selected' : '' %>>Huur</option>
+            <option value="entertainment" <%= uitgave?.category === 'entertainment' ? 'selected' : '' %>>Entertainment</option>
+            <option value="anders" <%= uitgave?.category === 'anders' ? 'selected' : '' %>>Anders</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Opslaan</button>
+      </form>
+    </div>
   </div>
+  
 </body>
 </html>

@@ -1,43 +1,71 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Voeg Uitgave Toe</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Uitgave Toevoegen</title>
 </head>
 <body>
-  <div class="container mt-5">
-    <h1>Voeg een Uitgave Toe</h1>
-    <form action="/add-expense" method="POST">
-      <div class="form-group">
-        <label for="userId">Gebruiker ID</label>
-        <input type="text" name="userId" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="description">Beschrijving</label>
-        <input type="text" name="description" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="amount">Bedrag</label>
-        <input type="number" step="0.01" name="amount" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="currency">Valuta</label>
-        <input type="text" name="currency" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="category">Categorie</label>
-        <input type="text" name="category" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="isPaid">Is de uitgave betaald?</label><br>
-        <input type="radio" name="isPaid" value="true"> Ja
-        <input type="radio" name="isPaid" value="false"> Nee
-      </div>
-      <button type="submit" class="btn btn-success">Toevoegen</button>
-    </form>
-    <a href="/" class="btn btn-secondary mt-3">Terug naar Home</a>
-  </div>
+  <h1>Uitgave Toevoegen</h1>
+  <form action="/uitgaven/toevoegen" method="POST">
+    <!-- Beschrijving -->
+    <label for="beschrijving">Beschrijving:</label>
+    <input type="text" id="beschrijving" name="description" required>
+
+    <!-- Bedrag -->
+    <label for="bedrag">Bedrag:</label>
+    <input type="number" id="bedrag" name="amount" required>
+
+    <!-- Datum -->
+    <label for="datum">Datum:</label>
+    <input type="date" id="datum" name="date" required>
+
+    <!-- Valuta -->
+    <label for="valuta">Valuta:</label>
+    <select id="valuta" name="currency" required>
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="GBP">GBP</option>
+    </select>
+
+    <!-- Betaalmethode -->
+    <label for="betaalmethode">Betaalmethode:</label>
+    <select id="betaalmethode" name="paymentMethod[method]" required>
+      <option value="Credit Card">Credit Card</option>
+      <option value="Bank Transfer">Bank Transfer</option>
+      <option value="Cash">Cash</option>
+      <option value="PayPal">PayPal</option>
+    </select>
+
+    <!-- Inkomst of Uitgave -->
+    <label for="isIncoming">Type Transactie:</label>
+    <select id="isIncoming" name="isIncoming" required>
+      <option value="true">Inkomst</option>
+      <option value="false">Uitgave</option>
+    </select>
+
+    <!-- Categorie -->
+    <label for="categorie">Categorie:</label>
+    <select id="categorie" name="category" required>
+      <option value="food">Eten</option>
+      <option value="drinks">Drinken</option>
+      <option value="huur">Huur</option>
+      <option value="entertainment">Entertainment</option>
+      <option value="anders">Anders</option>
+    </select>
+
+    <!-- Tags -->
+    <label for="tags">Tags (scheid met komma's):</label>
+    <input type="text" id="tags" name="tags" placeholder="bijv. pizza, monthly">
+
+    <!-- Betaald -->
+    <label for="isPaid">Betaald:</label>
+    <select id="isPaid" name="isPaid" required>
+      <option value="true">Ja</option>
+      <option value="false">Nee</option>
+    </select>
+
+    <button type="submit">Toevoegen</button>
+  </form>
 </body>
 </html>
