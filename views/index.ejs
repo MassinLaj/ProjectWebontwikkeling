@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mijn Uitgaven</title>
+</head>
+<body>
+  <h1>Uitgaven van gebruikers</h1>
+  <% gebruikers.forEach(gebruiker => { %>
+    <h2><%= gebruiker.naam %></h2>
+    <ul>
+      <% gebruiker.uitgaven.forEach(uitgave => { %>
+        <li><%= uitgave.beschrijving %> - <%= uitgave.bedrag %> <%= uitgave.valuta %></li>
+      <% }); %>
+    </ul>
+  <% }); %>
+</body>
+</html>
