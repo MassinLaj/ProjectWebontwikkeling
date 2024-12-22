@@ -1,0 +1,15 @@
+[
+  {
+    "id": "1",
+    "name": "Test",
+    "email": "test@test.com",
+    "expenses": [
+      
+    ],
+    "budget": {
+      "monthlyLimit": 2500,
+      "notificationThreshold": 0.9,
+      "isActive": true
+    }
+  }
+]
