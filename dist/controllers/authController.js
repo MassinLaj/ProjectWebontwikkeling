@@ -35,27 +35,65 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.haalAlleGebruikersOp = void 0;
+exports.logout = exports.register = exports.login = void 0;
+var bcrypt_1 = __importDefault(require("bcrypt"));
 var gebruiker_1 = require("../models/gebruiker");
-var haalAlleGebruikersOp = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var gebruikers, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+var login = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, username, password, gebruiker, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, gebruiker_1.Gebruiker.find().populate('uitgaven')];
+                _a = req.body, username = _a.username, password = _a.password;
+                return [4 /*yield*/, gebruiker_1.Gebruiker.findOne({ naam: username })];
             case 1:
-                gebruikers = _a.sent();
-                res.render('index', { gebruikers: gebruikers });
-                return [3 /*break*/, 3];
+                gebruiker = _c.sent();
+                _b = !gebruiker;
+                if (_b) return [3 /*break*/, 3];
+                return [4 /*yield*/, bcrypt_1.default.compare(password, gebruiker.password)];
             case 2:
-                error_1 = _a.sent();
-                console.error('Fout bij het ophalen van gebruikers:', error_1);
-                res.status(500).send('Er is een fout opgetreden');
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                _b = !(_c.sent());
+                _c.label = 3;
+            case 3:
+                if (_b) {
+                    return [2 /*return*/, res.status(401).send('Onjuiste gebruikersnaam of wachtwoord')];
+                }
+                req.session.gebruikerId = gebruiker._id;
+                res.redirect('/');
+                return [2 /*return*/];
         }
     });
 }); };
-exports.haalAlleGebruikersOp = haalAlleGebruikersOp;
+exports.login = login;
+var register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, username, password, bestaandeGebruiker, hashedPassword, nieuweGebruiker;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, username = _a.username, password = _a.password;
+                return [4 /*yield*/, gebruiker_1.Gebruiker.findOne({ naam: username })];
+            case 1:
+                bestaandeGebruiker = _b.sent();
+                if (bestaandeGebruiker) {
+                    return [2 /*return*/, res.status(400).send('Gebruikersnaam bestaat al')];
+                }
+                return [4 /*yield*/, bcrypt_1.default.hash(password, 10)];
+            case 2:
+                hashedPassword = _b.sent();
+                nieuweGebruiker = new gebruiker_1.Gebruiker({ naam: username, password: hashedPassword });
+                return [4 /*yield*/, nieuweGebruiker.save()];
+            case 3:
+                _b.sent();
+                res.redirect('/auth/login');
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.register = register;
+var logout = function (req, res) {
+    req.session.destroy(function () { return res.redirect('/auth/login'); });
+};
+exports.logout = logout;

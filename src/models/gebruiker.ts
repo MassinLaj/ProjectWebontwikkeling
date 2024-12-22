@@ -1,14 +1,14 @@
-import mongoose, { Document } from 'mongoose';
-import { IUitgave } from './uitgave';
+import mongoose, { Document, Types } from 'mongoose';
 
 export interface IGebruiker extends Document {
+  _id: Types.ObjectId; 
   naam: string;
-  uitgaven: IUitgave[];
+  password: string;
 }
 
 const gebruikerSchema = new mongoose.Schema({
   naam: { type: String, required: true },
-  uitgaven: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Uitgave' }]
+  password: { type: String, required: true },
 });
 
 export const Gebruiker = mongoose.model<IGebruiker>('Gebruiker', gebruikerSchema);

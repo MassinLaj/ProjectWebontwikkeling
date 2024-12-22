@@ -7,6 +7,6 @@ exports.Gebruiker = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
 var gebruikerSchema = new mongoose_1.default.Schema({
     naam: { type: String, required: true },
-    uitgaven: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: 'Uitgave' }]
+    password: { type: String, required: true },
 });
 exports.Gebruiker = mongoose_1.default.model('Gebruiker', gebruikerSchema);
