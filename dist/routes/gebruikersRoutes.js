@@ -6,8 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const authMiddleware_1 = require("../middleware/authMiddleware");
 const router = express_1.default.Router();
-// Dashboard voor ingelogde gebruikers
+// Dashboard route
 router.get('/dashboard', authMiddleware_1.isAuthenticated, (req, res) => {
-    res.render('dashboard', { gebruikerId: req.session.gebruikerId });
+    const gebruikerId = req.session.gebruikerId; // Sessie-ID ophalen
+    res.render('dashboard', { gebruikerId });
 });
 exports.default = router;

@@ -24,7 +24,7 @@ app.use((0, express_session_1.default)({
     secret: process.env.SESSION_SECRET || 'geheim',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // Gebruik true in productie met HTTPS
+    cookie: { secure: false },
 }));
 // Set view engine to EJS
 app.set('view engine', 'ejs');
@@ -34,7 +34,7 @@ app.use('/auth', authRoutes_1.default);
 app.use('/uitgaven', authMiddleware_1.isAuthenticated, uitgavenRoutes_1.default);
 // Dashboard route voor ingelogde gebruikers
 app.get('/dashboard', authMiddleware_1.isAuthenticated, (req, res) => {
-    const gebruikerId = req.session.gebruikerId; // Forceer TypeScript om gebruikerId te accepteren
+    const gebruikerId = req.session.gebruikerId; // Cast naar any om TypeScript-fouten te voorkomen
     res.render('dashboard', { gebruikerId });
 });
 // Root Route
